@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Halley Pic: tu caption del universo</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./scss/main.scss" />
+  </head>
+
+  <body>
+
+    <div class="finalCard-share">
+        <load src="./partials/header.html" /> <!--provisional-->
+
+        <main class="main-finalCard">
+            <section class="finalCard__card">
+                <img id="js-final-img" class="finalCard__img" src="" alt="Imagen del espacio seleccionada" />
+
+                <div class="finalCard__actions">
+                    <a id="finalCard__button--shareX" class="finalCard__iconLink" href="#" target="_blank" rel="noopener" aria-label="Compartir en X">
+                    <img src="" alt="" /> <!--icono X-->
+                    </a>
+
+                    <button id="finalCard__button--download" class="finalCard__iconBtn" type="button" aria-label="Descargar imagen">
+                    <img src="" alt="" /> <!--icono descargar-->
+                    </button>
+                </div>
+            </section>
+
+            <section class="finalCard__buttons">
+                <p class="finalCard__title">¡Estelar! Tu imagen ha sido creada correctamente ✨</p>
+                <p class="finalCard__subtitle">¿Qué hacemos ahora?</p>
+
+                <button id="finalCard__button--new" type="button">Crear nueva imagen</button>
+                <button id="finalCard__button--finish" type="button">Finalizar</button>
+            </section>
+        </main>
+
+    
+      <load src="./partials/footer.html" />
+    </div>
+    
+    <script src="./js/main.js"></script>
+
+  </body>
+</html>
