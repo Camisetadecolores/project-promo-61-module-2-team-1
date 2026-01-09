@@ -1,18 +1,26 @@
 
 const initAccordion = () => {
-  const accordionButtons = document.querySelectorAll('.accordion__header');
+  const buttons = document.querySelectorAll('.accordion__header');
 
-  accordionButtons.forEach((button) => {
+  buttons.forEach((button) => {
     button.addEventListener('click', () => {
       const content = button.nextElementSibling;
+      const isOpen = button.classList.contains('is-open');
 
-      // abre/cierra
-      content.classList.toggle('hidden');
+      buttons.forEach((btn) => {
+        btn.classList.remove('is-open');
+        btn.nextElementSibling.classList.add('hidden');
+      });
 
-      // rota flecha (estado visual)
-      button.classList.toggle('is-open');
+      if (!isOpen) {
+        button.classList.add('is-open');
+        content.classList.remove('hidden');
+      }
     });
   });
 };
 
+
 export default initAccordion;
+
+
