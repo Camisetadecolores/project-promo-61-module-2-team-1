@@ -1,0 +1,12 @@
+.hidden {
+  display: none;
+}
+
+.accordion__icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.accordion__header.is-open .accordion__icon {
+  transform: rotate(180deg);
+}

@@ -3,27 +3,27 @@
     <p class="form--text">¡Ey! Llegó el momento de customizar el universo</p>
 
     <form id="form--inputs">
-      <!-- FECHA -->
+      <!-- IMAGE -->
       <div class="accordion">
         <button type="button" class="accordion__header accordion--button">
           Escoge la <span class="bold">fecha</span>
           <span class="accordion__icon">⌄</span>
         </button>
 
-        <div class="accordion__content">
-          <label for="date" class="form__label">Fecha de la imagen</label>
+        <div class="accordion__content hidden">
+          <label for="date" class="form__label hidden">Fecha de la imagen</label>
           <input type="date" id="date" name="date" class="form__input" required />
         </div>
       </div>
 
-      <!-- MENSAJE / TIPO DE FRASE -->
+      <!-- TEXT -->
       <div class="accordion">
         <button type="button" class="accordion__header accordion--button">
           Escribe el <span class="bold">mensaje</span>
           <span class="accordion__icon">⌄</span>
         </button>
 
-        <div class="accordion__content">
+        <div class="accordion__content hidden">
           <label class="form__label">Tipo de frase</label>
 
           <div class="form__buttonsText" id="form__phraseType">
@@ -43,7 +43,8 @@
           <span class="accordion__icon">⌄</span>
         </button>
 
-        <div class="accordion__content">
+        <div class="accordion__content hidden">
+          <!-- Tipografía -->
           <label class="form__label">Tipografía</label>
 
           <div class="form__buttonsText" id="form__phraseFont">
@@ -55,6 +56,7 @@
 
           <input type="hidden" name="font" id="font" required />
 
+          <!-- Color -->
           <label class="form__label">Color</label>
 
           <div class="form__buttonsColor" id="form__color">
@@ -75,7 +77,7 @@
           <span class="accordion__icon">⌄</span>
         </button>
 
-        <div class="accordion__content">
+        <div class="accordion__content hidden">
           <label class="form__label">Posición</label>
 
           <div class="form__buttonsText" id="form__phrasePosition">
@@ -95,7 +97,7 @@
           <span class="accordion__icon">⌄</span>
         </button>
 
-        <div class="accordion__content">
+        <div class="accordion__content hidden">
           <label for="signature" class="form__label">Firma</label>
           <input
             type="text"
@@ -109,10 +111,10 @@
     </form>
   </section>
 
+  <!-- PREVIEW -->
   <section class="main__pic">
     <p class="pic__text">
-      Esta es una imagen oficial de la Nasa tomada el
-      <span class="pic__text--date"></span>
+      Esta es una imagen oficial de la Nasa tomada el <span class="pic__text--date"></span>
     </p>
     <div class="form__previsualization"></div>
   </section>
