@@ -9,3 +9,7 @@ initAccordion();
 //Import date action
 import initDateText from './date';      
 initDateText();
+
+//Import form selects action
+import initFormSelects from './formSelects';
+initFormSelects();
