@@ -1,0 +1,119 @@
+<section class="page__form">
+  <section class="main__form">
+    <p class="form--text">¡Ey! Llegó el momento de customizar el universo</p>
+
+    <form id="form--inputs">
+      <!-- FECHA -->
+      <div class="accordion">
+        <button type="button" class="accordion__header accordion--button">
+          Escoge la <span class="bold">fecha</span>
+          <span class="accordion__icon">⌄</span>
+        </button>
+
+        <div class="accordion__content">
+          <label for="date" class="form__label">Fecha de la imagen</label>
+          <input type="date" id="date" name="date" class="form__input" required />
+        </div>
+      </div>
+
+      <!-- MENSAJE / TIPO DE FRASE -->
+      <div class="accordion">
+        <button type="button" class="accordion__header accordion--button">
+          Escribe el <span class="bold">mensaje</span>
+          <span class="accordion__icon">⌄</span>
+        </button>
+
+        <div class="accordion__content">
+          <label class="form__label">Tipo de frase</label>
+
+          <div class="form__buttonsText" id="form__phraseType">
+            <button type="button" class="form__option" data-value="romantic">Romántica</button>
+            <button type="button" class="form__option" data-value="motivational">Motivacional</button>
+            <button type="button" class="form__option" data-value="inspirational">Inspiradora</button>
+          </div>
+
+          <input type="hidden" name="phraseType" id="phraseType" required />
+        </div>
+      </div>
+
+      <!-- TIPOGRAFÍA Y COLOR -->
+      <div class="accordion">
+        <button type="button" class="accordion__header accordion--button">
+          Escoge la <span class="bold">tipografía</span> y <span class="bold">color</span>
+          <span class="accordion__icon">⌄</span>
+        </button>
+
+        <div class="accordion__content">
+          <label class="form__label">Tipografía</label>
+
+          <div class="form__buttonsText" id="form__phraseFont">
+            <button type="button" class="form__option" data-value="dancing-script">Dancing Script</button>
+            <button type="button" class="form__option" data-value="playfair-display">Playfair Display</button>
+            <button type="button" class="form__option" data-value="montserrat">Montserrat</button>
+            <button type="button" class="form__option" data-value="roboto">Roboto</button>
+          </div>
+
+          <input type="hidden" name="font" id="font" required />
+
+          <label class="form__label">Color</label>
+
+          <div class="form__buttonsColor" id="form__color">
+            <button type="button" class="form__colorOption" data-value="#000000" title="Negro" aria-label="Negro"></button>
+            <button type="button" class="form__colorOption" data-value="#ffffff" title="Blanco" aria-label="Blanco"></button>
+            <button type="button" class="form__colorOption" data-value="#ff6b81" title="Rosa" aria-label="Rosa"></button>
+            <button type="button" class="form__colorOption" data-value="#6dd5c4" title="Verde menta" aria-label="Verde menta"></button>
+          </div>
+
+          <input type="hidden" name="color" id="color" required />
+        </div>
+      </div>
+
+      <!-- POSICIÓN DEL TEXTO -->
+      <div class="accordion">
+        <button type="button" class="accordion__header accordion--button">
+          Escoge la <span class="bold">posición</span> del texto
+          <span class="accordion__icon">⌄</span>
+        </button>
+
+        <div class="accordion__content">
+          <label class="form__label">Posición</label>
+
+          <div class="form__buttonsText" id="form__phrasePosition">
+            <button type="button" class="form__option" data-value="start">Arriba</button>
+            <button type="button" class="form__option" data-value="center">Centro</button>
+            <button type="button" class="form__option" data-value="end">Abajo</button>
+          </div>
+
+          <input type="hidden" name="phrasePosition" id="phrasePosition" required />
+        </div>
+      </div>
+
+      <!-- FIRMA -->
+      <div class="accordion">
+        <button type="button" class="accordion__header accordion--button">
+          Pon tu <span class="bold">firma</span>
+          <span class="accordion__icon">⌄</span>
+        </button>
+
+        <div class="accordion__content">
+          <label for="signature" class="form__label">Firma</label>
+          <input
+            type="text"
+            id="signature"
+            name="signature"
+            class="form__input"
+            placeholder="Tu nombre o alias"
+          />
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <section class="main__pic">
+    <p class="pic__text">
+      Esta es una imagen oficial de la Nasa tomada el
+      <span class="pic__text--date"></span>
+    </p>
+    <div class="form__previsualization"></div>
+  </section>
+</section>

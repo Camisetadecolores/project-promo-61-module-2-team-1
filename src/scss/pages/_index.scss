@@ -1,0 +1,297 @@
+.hero {
+  min-height: 100vh;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 16px;
+}
+
+.hero__inner {
+  width: min(980px, 100%);
+  text-align: center;
+  position: relative;
+}
+
+.hero__brand {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.hero__logo {
+  width: 180px;
+  height: auto;
+  display: block;
+}
+
+.hero__title {
+  margin: 92px 0 24px; 
+  font-size: clamp(40px, 6vw, 76px);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.hero__media {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 22px;
+}
+
+.hero__video {
+  width: min(520px, 90vw);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 999px; 
+  display: block;
+
+
+  box-shadow: 0 0 140px rgba(60, 90, 255, 0.25);
+}
+
+.hero__subtitle {
+  max-width: 640px;
+  margin: 0 auto 28px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.hero__cta {
+  display: inline-block;
+  padding: 16px 52px;
+  border-radius: 999px;
+  background: #1f3cff;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: transform 0.15s ease;
+}
+
+.hero__cta:hover {
+  transform: translateY(-1px);
+}
+
+.hero__scroll {
+  width: 18px;
+  height: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 999px;
+  margin: 26px auto 0;
+  position: relative;
+}
+
+
+
+
+.hero__scroll::after {
+  content: "";
+  width: 4px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  left: 50%;
+  top: 7px;
+  transform: translateX(-50%);
+  animation: heroScrollDot 1.25s infinite;
+}
+
+@keyframes heroScrollDot {
+  0% { transform: translate(-50%, 0); opacity: 1; }
+  70% { transform: translate(-50%, 10px); opacity: 0.2; }
+  100% { transform: translate(-50%, 0); opacity: 1; }
+}
+
+
+@media (max-width: 640px) {
+  .hero__brand {
+    position: static;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .hero__title {
+    margin-top: 0;
+  }
+}
+
+
+
+/* FORM PAGE */
+
+.page__form {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 72px;
+  padding: 64px;
+  background: #fff;
+  position: relative;
+}
+
+/* Columna izquierda */
+.main__form {
+  max-width: 620px;
+}
+
+.form--text {
+  font-size: 40px;
+  font-weight: 800;
+  margin-bottom: 32px;
+  line-height: 1.1;
+}
+
+/* ACCORDION */
+.accordion {
+  margin-bottom: 16px;
+}
+
+.accordion__header {
+  width: 100%;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 14px;
+  padding: 18px 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* keep the chevron pinned to the right */
+.accordion__icon {
+  margin-left: auto;
+  transition: transform 0.2s ease;
+}
+
+.accordion.is-open .accordion__icon {
+  transform: rotate(180deg);
+}
+
+.accordion__content {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  margin-top: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+/* Animación acordeón */
+.page__form .accordion__content {
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: height 250ms ease, opacity 200ms ease, transform 200ms ease;
+}
+
+/* Estado abierto */
+.page__form .accordion.is-open .accordion__content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* FORM */
+.form__label {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.form__input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.form__buttonsText {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.form__option {
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.form__buttonsColor {
+  display: flex;
+  gap: 12px;
+}
+
+.form__colorOption {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+}
+
+/* Alinear textos de los acordeones a la izquierda */
+.page__form .accordion__content {
+  text-align: left;
+}
+
+.page__form .form__label {
+  text-align: left;
+}
+
+.page__form .form__input {
+  text-align: left;
+}
+
+.page__form .form__buttonsText,
+.page__form .form__buttonsColor {
+  justify-content: flex-start;
+}
+/* PREVIEW */
+.main__pic {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.pic__text {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.form__previsualization {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 4 / 5;
+  background: #eef1f5;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  .page__form {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 32px 16px;
+  }
+
+  .main__form {
+    max-width: 100%;
+  }
+}
