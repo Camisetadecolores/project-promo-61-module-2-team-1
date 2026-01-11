@@ -11,13 +11,24 @@
 const NASA_API_KEY = 'DEMO_KEY';
 
 
-//Import date action
-import initDateText from './date';      
-initDateText();
-
-//Import form selects action
+// Imports
+import initDateText from './date';
 import initFormSelects from './formSelects';
-initFormSelects();
+import initFontButtons from './font';
+import initColorButtons from './colorfont';
+import initPositionButtons from './position';
+import initSignature from './signature';
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  initDateText();
+  initFormSelects();
+  initFontButtons();
+  initColorButtons();
+  initPositionButtons();
+  initSignature();
+});
+
 
 function setPreviewLoading(isLoading, msg = '') {
   const status = document.querySelector('#apodStatus');
