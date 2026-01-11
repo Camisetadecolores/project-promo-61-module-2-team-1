@@ -4,26 +4,28 @@
 
     <form id="form--inputs">
       <!-- IMAGE -->
-      <div class="accordion">
-        <button type="button" class="accordion__header accordion--button">
+      <details class="accordion">
+        <summary class="accordion__header accordion--button">
           Escoge la <span class="bold">fecha</span>
           <span class="accordion__icon">⌄</span>
-        </button>
+        </summary>
 
-        <div class="accordion__content hidden">
-          <label for="date" class="form__label">Fecha de la imagen</label>
-          <input type="date" id="date" name="date" class="form__input" required />
+
+        <div class="accordion__content">
+          <label for="date" class="form__label hidden">Fecha de la imagen</label>
+          <input type="date" id="date" name="date" class="form__input" required max="" />
+
         </div>
-      </div>
+      </details>
 
       <!-- TEXT -->
-      <div class="accordion">
-        <button type="button" class="accordion__header accordion--button">
+      <details class="accordion">
+        <summary class="accordion__header accordion--button">
           Escribe el <span class="bold">mensaje</span>
           <span class="accordion__icon">⌄</span>
-        </button>
+        </summary>
 
-        <div class="accordion__content hidden">
+        <div class="accordion__content">
           <label class="form__label">Tipo de frase</label>
 
           <div class="form__buttonsText" id="form__phraseType">
@@ -34,16 +36,16 @@
 
           <input type="hidden" name="phraseType" id="phraseType" required />
         </div>
-      </div>
+      </details>
 
       <!-- TIPOGRAFÍA Y COLOR -->
-      <div class="accordion">
-        <button type="button" class="accordion__header accordion--button">
+      <details class="accordion">
+        <summary class="accordion__header accordion--button">
           Escoge la <span class="bold">tipografía</span> y <span class="bold">color</span>
           <span class="accordion__icon">⌄</span>
-        </button>
+        </summary>
 
-        <div class="accordion__content hidden">
+        <div class="accordion__content">
           <!-- Tipografía -->
           <label class="form__label">Tipografía</label>
 
@@ -68,16 +70,16 @@
 
           <input type="hidden" name="color" id="color" required />
         </div>
-      </div>
+      </details>
 
       <!-- POSICIÓN DEL TEXTO -->
-      <div class="accordion">
-        <button type="button" class="accordion__header accordion--button">
+      <details class="accordion">
+        <summary class="accordion__header accordion--button">
           Escoge la <span class="bold">posición</span> del texto
           <span class="accordion__icon">⌄</span>
-        </button>
+        </summary>
 
-        <div class="accordion__content hidden">
+        <div class="accordion__content">
           <label class="form__label">Posición</label>
 
           <div class="form__buttonsText" id="form__phrasePosition">
@@ -88,16 +90,16 @@
 
           <input type="hidden" name="phrasePosition" id="phrasePosition" required />
         </div>
-      </div>
+      </details>
 
       <!-- FIRMA -->
-      <div class="accordion">
-        <button type="button" class="accordion__header accordion--button">
+      <details class="accordion">
+        <summary class="accordion__header accordion--button">
           Pon tu <span class="bold">firma</span>
           <span class="accordion__icon">⌄</span>
-        </button>
+        </summary>
 
-        <div class="accordion__content hidden">
+        <div class="accordion__content">
           <label for="signature" class="form__label">Firma</label>
           <input
             type="text"
@@ -107,7 +109,7 @@
             placeholder="Tu nombre o alias"
           />
         </div>
-      </div>
+      </details>
     </form>
   </section>
 
@@ -116,6 +118,18 @@
     <p class="pic__text">
       Esta es una imagen oficial de la Nasa tomada el <span class="pic__text--date"></span>
     </p>
-    <div class="form__previsualization"></div>
+
+    <div class="form__previsualization" aria-live="polite">
+      <img class="form__previsualizationImage" id="apodImage" alt="Imagen del día (NASA)" hidden />
+      <iframe
+        class="form__previsualizationVideo"
+        id="apodVideo"
+        title="Video"
+        hidden
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+      ></iframe>
+      <p class="form__previsualizationStatus" id="apodStatus"></p>
+    </div>
   </section>
 </section>

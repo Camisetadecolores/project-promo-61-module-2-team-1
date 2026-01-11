@@ -5,19 +5,7 @@
 // https://api.nasa.gov/
 // =============================
 
-// ✅ Para pruebas funciona DEMO_KEY, pero tiene límites.
-// Si usas Vite, lo ideal es crear .env con: VITE_NASA_API_KEY=xxxxx
-// y cambiar a: const NASA_API_KEY = import.meta.env.VITE_NASA_API_KEY;
 const NASA_API_KEY = 'DEMO_KEY';
-
-
-//Import date action
-import initDateText from './date';      
-initDateText();
-
-//Import form selects action
-import initFormSelects from './formSelects';
-initFormSelects();
 
 function setPreviewLoading(isLoading, msg = '') {
   const status = document.querySelector('#apodStatus');
@@ -42,9 +30,11 @@ function setPreviewImage(url) {
   if (!img || !video || !status) return;
 
   img.src = url;
+  img.style.width = '';
+  img.style.height = '';
   img.hidden = false;
 
-  // EPIC solo es imagen, pero por si acaso ocultamos el iframe
+  // EPIC solo es imagen; ocultamos el iframe
   video.src = '';
   video.hidden = true;
 
@@ -52,8 +42,6 @@ function setPreviewImage(url) {
 }
 
 async function fetchWikimediaAstronomyImage() {
-  // API de Wikimedia Commons (sin API key)
-  // Cogemos una imagen aleatoria de categorías de astronomía
   const endpoint = 'https://commons.wikimedia.org/w/api.php?' + new URLSearchParams({
     action: 'query',
     format: 'json',
@@ -85,15 +73,12 @@ async function fetchWikimediaAstronomyImage() {
     throw new Error('No se encontraron URLs de imágenes alternativas');
   }
 
-  // Elegimos una imagen aleatoria
   return images[Math.floor(Math.random() * images.length)];
 }
 
 async function fetchEpicImageByDate(dateStr) {
-  // dateStr: YYYY-MM-DD
   const endpoint = `https://api.nasa.gov/EPIC/api/natural/date/${dateStr}?api_key=${NASA_API_KEY}`;
 
-  // Timeout para evitar quedarse "cargando" infinito
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 12000);
 
@@ -107,24 +92,18 @@ async function fetchEpicImageByDate(dateStr) {
     }
 
     if (!Array.isArray(data) || data.length === 0) {
-      // EPIC no tiene fotos todos los días
       throw new Error('No hay imágenes EPIC para esa fecha. Prueba otra (p. ej. 2023-01-01).');
     }
 
-    // Nos quedamos con la primera imagen del día
     const first = data[0];
-    const imageName = first.image; // ej: epic_1b_20200101011359
+    const imageName = first.image;
 
     if (!imageName) {
       throw new Error('Respuesta EPIC inválida (no viene el nombre de la imagen).');
     }
 
     const [yyyy, mm, dd] = dateStr.split('-');
-
-    // Archivo en el archive de EPIC (png). También existe /jpg/
-    const imageUrl = `https://epic.gsfc.nasa.gov/archive/natural/${yyyy}/${mm}/${dd}/png/${imageName}.png`;
-
-    return imageUrl;
+    return `https://epic.gsfc.nasa.gov/archive/natural/${yyyy}/${mm}/${dd}/png/${imageName}.png`;
   } catch (err) {
     if (err?.name === 'AbortError') {
       throw new Error('La petición a NASA EPIC tardó demasiado (timeout).');
@@ -146,8 +125,7 @@ function initEpicDatePicker() {
   const yyyy = today.getFullYear();
   const mm = String(today.getMonth() + 1).padStart(2, '0');
   const dd = String(today.getDate()).padStart(2, '0');
-  const todayStr = `${yyyy}-${mm}-${dd}`;
-  dateInput.max = todayStr;
+  dateInput.max = `${yyyy}-${mm}-${dd}`;
 
   dateInput.addEventListener('change', async (ev) => {
     const selectedDate = ev.target.value;
@@ -159,9 +137,7 @@ function initEpicDatePicker() {
       setPreviewLoading(true, 'Cargando imagen de la NASA…');
 
       const imageUrl = await fetchEpicImageByDate(selectedDate);
-      const safeUrl = imageUrl.replace(/^http:\/\//, 'https://');
-
-      setPreviewImage(safeUrl);
+      setPreviewImage(imageUrl.replace(/^http:\/\//, 'https://'));
     } catch (err) {
       console.warn('NASA falló, usando imagen alternativa:', err);
 
@@ -169,9 +145,7 @@ function initEpicDatePicker() {
         setPreviewLoading(true, 'NASA está saturada. Cargando imagen alternativa del espacio…');
 
         const fallbackUrl = await fetchWikimediaAstronomyImage();
-        const safeFallbackUrl = fallbackUrl.replace(/^http:\/\//, 'https://');
-
-        setPreviewImage(safeFallbackUrl);
+        setPreviewImage(fallbackUrl.replace(/^http:\/\//, 'https://'));
       } catch (fallbackErr) {
         console.error(fallbackErr);
         setPreviewLoading(true, 'No se pudo cargar ninguna imagen. Inténtalo más tarde.');
@@ -183,4 +157,3 @@ function initEpicDatePicker() {
 document.addEventListener('DOMContentLoaded', () => {
   initEpicDatePicker();
 });
-

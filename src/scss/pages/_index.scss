@@ -1,3 +1,23 @@
+
+
+html {
+  font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+
+#apodImage {
+  max-width: 90%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  #apodImage {
+    max-width: 100%;
+  }
+}
+
 .hero {
   min-height: 100vh;
   background: #000;
@@ -24,9 +44,76 @@
 }
 
 .hero__logo {
-  width: 180px;
+  width: 160px;
   height: auto;
   display: block;
+}
+
+
+header.page__header{
+  background-color: #000000;
+}
+
+
+.page__header {
+  width: 100%;
+}
+
+
+
+.header__logo {
+  max-width: 1200px; // o el ancho de tu layout
+  margin: 0 auto;
+  padding: 16px 24px; // márgenes internos (ajusta según diseño)
+
+  display: flex;
+  align-items: center;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  img {
+    height: 32px; // ajusta al diseño
+    width: auto;
+    display: block;
+  }
+}
+
+.footer__text {
+  background-color: #000;
+  width: 100%;
+
+  display: flex;
+  justify-content: center; // o flex-start si va alineado a la izquierda
+  gap: 24px;
+
+  padding: 16px 24px;
+
+  a {
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+  }
+}
+
+
+.page__form {
+  width: 100%;
+  background-image: url('./fondo_bolas.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  padding: 64px 24px; // aire vertical y lateral
 }
 
 .hero__title {
