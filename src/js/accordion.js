@@ -1,49 +1,44 @@
-'use strict';
+function initAccordion() {
+  const accordions = document.querySelectorAll('.accordion');
+  if (!accordions.length) return;
 
-const bindAccordion = () => {
-  const buttons = document.querySelectorAll('.accordion__header');
-  if (!buttons.length) return;
+  accordions.forEach((accordion) => {
 
-  buttons.forEach((button) => {
-    // Avoid double-binding if init runs more than once
-    if (button.dataset.accordionBound === 'true') return;
-    button.dataset.accordionBound = 'true';
+    if (accordion.tagName.toLowerCase() === 'details') {
+      accordion.addEventListener('toggle', () => {
 
-    button.addEventListener('click', (ev) => {
-      ev.preventDefault();
+        if (accordion.open) {
+          accordions.forEach((other) => {
+            if (other !== accordion && other.tagName.toLowerCase() === 'details') {
+              other.removeAttribute('open');
+              other.classList.remove('is-open');
+            }
+          });
+        }
 
-      const content = button.nextElementSibling;
-      if (!content) return;
-
-      const isOpen = button.classList.contains('is-open');
-
-      // Close all
-      buttons.forEach((btn) => {
-        btn.classList.remove('is-open');
-        const c = btn.nextElementSibling;
-        if (c) c.classList.add('hidden');
+  
+        accordion.classList.toggle('is-open', accordion.open);
       });
 
-      // Toggle current
-      if (!isOpen) {
-        button.classList.add('is-open');
-        content.classList.remove('hidden');
-      } else {
-        // If it was open, keep it closed (toggle)
-        button.classList.remove('is-open');
-        content.classList.add('hidden');
-      }
+
+      accordion.classList.toggle('is-open', accordion.open);
+      return;
+    }
+
+
+    const header = accordion.querySelector('.accordion__header');
+    if (!header) return;
+
+    header.addEventListener('click', () => {
+      const isOpen = accordion.classList.contains('is-open');
+
+
+      accordions.forEach((other) => other.classList.remove('is-open'));
+
+
+      if (!isOpen) accordion.classList.add('is-open');
     });
   });
-};
-
-const initAccordion = () => {
-  // If called before the HTML is rendered (partials), wait for DOM.
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bindAccordion, { once: true });
-    return;
-  }
-  bindAccordion();
-};
+}
 
 export default initAccordion;

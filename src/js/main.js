@@ -18,15 +18,19 @@ import initFontButtons from './font';
 import initColorButtons from './colorfont';
 import initPositionButtons from './position';
 import initSignature from './signature';
+import initActions from './actions'; 
+import initAccordion from './accordion';
 
 
 document.addEventListener('DOMContentLoaded', () => {
+  initAccordion();
   initDateText();
   initFormSelects();
   initFontButtons();
   initColorButtons();
   initPositionButtons();
   initSignature();
+  initActions();
 });
 
 
