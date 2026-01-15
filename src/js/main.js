@@ -39,3 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // ⚠️ Si quieres esto, tienes que importarlo/definirlo
   // initActions();
 });
+
+
+import { initFinalCardShare } from "./finalCardShare.js";
+
+initFinalCardShare();

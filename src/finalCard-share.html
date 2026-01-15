@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -31,36 +29,75 @@
   </head>
 
   <body>
-<!--MODIFICAR PARA ADAPTAR A DISEÑO DE FIGMA-->
+
     <div class="finalCard-share">
         <load src="./partials/header.html" /> 
 
+         <h1 style="color: rgb(88, 52, 189); text-align: center; font-size: 3rem; font-weight: 700" class="finalCard__polaroidTitle">¡WOW! Ya tienes tu imagen Polaroid lista</h1>
+
         <main class="main-finalCard">
             <section class="finalCard__card">
-                <img id="js-final-img" class="finalCard__img" src="" alt="Imagen del espacio seleccionada" />
-                <div class="finalCard__text">
-                  <p id="js-final-message" class="finalCard__message"></p>
-                  <p id="js-final-signature" class="finalCard__signature"></p>
-                </div>
 
-                <div class="finalCard__actions">
-                    <a id="finalCard__button--shareX" class="finalCard__iconLink" href="#" target="_blank" rel="noopener" aria-label="Compartir en X">
-                    <img src="" alt="" /> 
-                    </a>
 
-                    <button id="finalCard__button--download" class="finalCard__iconBtn" type="button" aria-label="Descargar imagen">
-                    <img src="" alt="" /> 
-                    </button>
-                </div>
-            </section>
+  <div class="finalCard__polaroid">
+    <div class="finalCard__media">
+      <img id="js-final-img" class="finalCard__img" src="" alt="Imagen del espacio seleccionada" />
+    </div>
+
+    <div class="finalCard__caption">
+      <p id="js-final-message" class="finalCard__message"></p>
+      <p id="js-final-signature" class="finalCard__signature"></p>
+    </div>
+  </div>
+
+  <div class="finalCard__actions" aria-label="Compartir o descargar">
+    <!-- WhatsApp -->
+    <a
+      id="finalCard__button--shareWA"
+      class="finalCard__iconLink"
+      href="#"
+      target="_blank"
+      rel="noopener"
+      aria-label="Compartir en WhatsApp"
+      title="Compartir en WhatsApp"
+    >
+      <img src="/images/Whatsapp.png" alt="WhatsApp" />
+    </a>
+
+    <!-- Instagram -->
+    <button
+      id="finalCard__button--shareIG"
+      class="finalCard__iconBtn"
+      type="button"
+      aria-label="Compartir en Instagram"
+      title="Compartir en Instagram"
+    >
+      <img src="/images/Instagram.png" alt="Instagram" />
+    </button>
+
+    <!-- Download -->
+    <button
+      id="finalCard__button--download"
+      class="finalCard__iconBtn"
+      type="button"
+      aria-label="Descargar imagen"
+      title="Descargar"
+    >
+      <img src="/images/Download.png" alt="Descargar" />
+    </button>
+  </div>
+</section>
 
             <section class="finalCard__buttons">
-                <p class="finalCard__title">¡Estelar! Ya tienes tu imagen Polaroid lista</p>
-                <p class="finalCard__subtitle">¿Qué hacemos ahora?</p>
+  <h3 class="finalCard__subtitle">¿Qué hacemos ahora?</h3>
 
-                <button id="finalCard__button--new" type="button">Crear nueva imagen</button>
-                <button id="finalCard__button--finish" type="button">Finalizar</button>
-            </section>
+  
+
+  <div class="finalCard__ctaRow">
+    <button id="finalCard__button--finish" type="button">Finalizar</button>
+    <button id="finalCard__button--new" type="button">Crear nueva imagen</button>
+  </div>
+</section>
         </main>
 
     
