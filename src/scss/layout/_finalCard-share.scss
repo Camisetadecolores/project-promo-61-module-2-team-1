@@ -1,0 +1,220 @@
+/* =========================
+   FINAL CARD SHARE PAGE
+   (partial)
+   Se importa desde src/scss/main.scss con:
+   @use "./layout/finalCard-share";
+========================= */
+
+:root {
+  --bg: #000;
+  --text: #fff;
+  --muted: rgba(255, 255, 255, 0.72);
+  --muted-2: rgba(255, 255, 255, 0.55);
+  --stroke: rgba(255, 255, 255, 0.18);
+
+  --card: rgba(255, 255, 255, 0.06);
+
+  --radius-xl: 1.5rem;
+  --radius-pill: 999rem;
+
+  --shadow-soft: 0 1.25rem 3.75rem rgba(0, 0, 0, 0.45);
+  --shadow-btn: 0 0.75rem 2rem rgba(0, 0, 0, 0.35);
+}
+
+.finalCard-share {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Si tu header/footer están dentro del wrapper */
+.finalCard-share > header,
+.finalCard-share > footer {
+  width: 100%;
+}
+
+.main-finalCard {
+  flex: 1;
+  width: min(70rem, 100%);
+  margin: 0 auto;
+  padding: 3rem 1.5rem 3.5rem;
+
+  display: grid;
+  gap: 2.75rem;
+  place-items: center;
+  text-align: center;
+}
+
+.finalCard__card {
+  width: min(48rem, 100%);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, var(--card), rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--stroke);
+  box-shadow: var(--shadow-soft);
+
+  padding: 1.25rem;
+
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+}
+
+.finalCard__img {
+  width: 100%;
+  height: auto;
+  border-radius: 1.25rem;
+  object-fit: cover;
+
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.finalCard__actions {
+  display: inline-flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.finalCard__iconLink,
+.finalCard__iconBtn {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0.75rem 2.25rem rgba(0, 0, 0, 0.35);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+  cursor: pointer;
+  padding: 0;
+}
+
+.finalCard__iconLink:hover,
+.finalCard__iconBtn:hover {
+  transform: translateY(-0.125rem);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.26);
+}
+
+.finalCard__iconLink:focus-visible,
+.finalCard__iconBtn:focus-visible {
+  outline: 0.2rem solid rgba(255, 255, 255, 0.35);
+  outline-offset: 0.25rem;
+}
+
+.finalCard__iconLink img,
+.finalCard__iconBtn img {
+  width: 1.4rem;
+  height: 1.4rem;
+  object-fit: contain;
+  opacity: 0.95;
+}
+
+.finalCard__buttons {
+  width: min(52rem, 100%);
+  display: grid;
+  gap: 1.1rem;
+  justify-items: center;
+  text-align: center;
+}
+
+.finalCard__title {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  letter-spacing: -0.02em;
+}
+
+.finalCard__subtitle {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--muted);
+}
+
+#finalCard__button--new,
+#finalCard__button--finish {
+  width: min(26rem, 100%);
+  border-radius: var(--radius-pill);
+  padding: 0.95rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: var(--shadow-btn);
+
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+  cursor: pointer;
+}
+
+#finalCard__button--new:hover,
+#finalCard__button--finish:hover {
+  transform: translateY(-0.125rem);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.26);
+}
+
+#finalCard__button--finish {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+#finalCard__button--finish:hover {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.finalCard-share footer {
+  margin-top: auto;
+  border-top: 1px solid var(--stroke);
+}
+
+.finalCard-share footer a {
+  color: var(--muted-2);
+  text-decoration: none;
+  transition: color 160ms ease, opacity 160ms ease;
+}
+
+.finalCard-share footer a:hover {
+  color: var(--text);
+}
+
+@media (max-width: 60rem) {
+  .main-finalCard {
+    padding: 2.5rem 1.25rem 3rem;
+    gap: 2.25rem;
+  }
+
+  .finalCard__card {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  .main-finalCard {
+    padding: 2rem 1rem 2.5rem;
+  }
+
+  .finalCard__actions {
+    gap: 0.75rem;
+  }
+
+  .finalCard__iconLink,
+  .finalCard__iconBtn {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  #finalCard__button--new,
+  #finalCard__button--finish {
+    width: 100%;
+  }
+}
