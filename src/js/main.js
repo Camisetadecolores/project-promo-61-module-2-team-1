@@ -15,6 +15,7 @@ import initApp from './app';
 import initShare from './share';
 
 // 🌿 Naturaleza por fecha (Pexels)
+
 import './picture.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -35,3 +36,9 @@ if (window.location.pathname.includes('finalCard-share')) {
   initApp();
 }
 });
+  initActions();
+
+
+import { initPhrasePicker } from "./phrases.js";
+
+initPhrasePicker();
