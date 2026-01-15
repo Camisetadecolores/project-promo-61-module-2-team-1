@@ -8,6 +8,8 @@ import initColorButtons from './colorfont';
 import initPositionButtons from './position';
 import initSignature from './signature';
 import initAccordion from './accordion';
+import initiReset from './reset';
+
 
 import initApp from './app';
 import initShare from './share';
@@ -23,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initColorButtons();
   initPositionButtons();
   initSignature();
+  initiReset();
+
 
 if (window.location.pathname.includes('finalCard-share')) {
   console.log('[main] estoy en finalCard-share, llamo a initShare');
