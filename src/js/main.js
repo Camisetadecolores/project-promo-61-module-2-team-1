@@ -10,7 +10,7 @@ import initSignature from './signature';
 import initActions from './actions';
 import initAccordion from './accordion';
 
-// 🌿 Naturaleza por fecha (Pexels)
+
 import './picture.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -23,3 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSignature();
   initActions();
 });
+
+import { initPhrasePicker } from "./phrases.js";
+
+initPhrasePicker();
