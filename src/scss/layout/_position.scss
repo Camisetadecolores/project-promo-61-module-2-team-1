@@ -1,14 +1,15 @@
 .postcard.is-top {
-  justify-content: flex-start;
-  margin-top: 2rem;
+  justify-content: flex-end;
+  margin-bottom: 2.2rem;
 }
 
 .postcard.is-center {
-  justify-content: center;
+    justify-content: flex-end;
+    margin-bottom: 1.2rem;
 }
 
 .postcard.is-bottom {
   justify-content: flex-end;
-  margin-bottom: 2rem;
+  margin-bottom: 0.1rem;
 }
 

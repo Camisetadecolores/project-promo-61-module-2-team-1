@@ -25,7 +25,7 @@ function initColorButtons() {
     const btn = ev.target.closest('.form__colorOption');
     if (!btn) return;
 
-    const color = btn.dataset.value; // "#000000", "#ffffff", etc.
+    const color = btn.dataset.value; 
     if (!color) return;
 
     applyColor(color);

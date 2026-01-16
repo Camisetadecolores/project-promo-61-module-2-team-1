@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSignature();
   initiReset();
 
-  // ✅ aquí dentro, con el DOM ya cargado
+
   initPhrasePicker();
 
   if (window.location.pathname.includes('finalCard-share')) {
@@ -36,6 +36,4 @@ document.addEventListener('DOMContentLoaded', () => {
     initApp();
   }
 
-  // ⚠️ Si quieres esto, tienes que importarlo/definirlo
-  // initActions();
 });

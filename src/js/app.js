@@ -1,4 +1,4 @@
-// app.js
+
 import { createCard } from './api.js';
 
 const state = {
@@ -8,6 +8,13 @@ const state = {
   color: '',
   signature: '',
   position: '',
+};
+
+const FONT_MAP = {
+  'dancing-script': '"Dancing Script", cursive',
+  'playfair-display': '"Playfair Display", serif',
+  montserrat: '"Montserrat", sans-serif',
+  roboto: '"Roboto", sans-serif',
 };
 
 function getUI() {
@@ -34,12 +41,14 @@ function updateStateFromUI(ui) {
 }
 
 function render(ui) {
+  const cssFont = FONT_MAP[state.font] || '';
+
   if (ui.messagePreview) {
-    ui.messagePreview.style.fontFamily = state.font || '';
+    ui.messagePreview.style.fontFamily = cssFont;
     ui.messagePreview.style.color = state.color || '';
   }
   if (ui.signaturePreview) {
-    ui.signaturePreview.style.fontFamily = state.font || '';
+    ui.signaturePreview.style.fontFamily = cssFont;
     ui.signaturePreview.style.color = state.color || '';
   }
 }
@@ -71,17 +80,15 @@ function handleFinish(ui, ev) {
 
   createCard(mapStateToApiData())
     .then((response) => {
-      // ✅ LOG para que veas exactamente qué devuelve el POST
+
       console.log('[POST response]', response);
 
-      // ✅ Caso 1: la API te da una URL lista para compartir
       const cardURL = response?.cardURL || response?.cardUrl || response?.url;
       if (cardURL) {
         window.location.href = cardURL;
         return;
       }
 
-      // ✅ Caso 2: la API te da un id (el nombre puede variar)
       const id =
         response?.infoID ||
         response?.infoId ||

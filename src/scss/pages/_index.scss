@@ -1,15 +1,13 @@
 
-
 html {
   font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-
-#apodImage {
-  max-width: 90%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100dvh;
 }
 
 @media (max-width: 768px) {
@@ -19,19 +17,22 @@ html {
 }
 
 .hero {
-  min-height: 100vh;
+  height: 100dvh;
   background: #000;
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 64px 16px;
-}
+  padding: 1rem;
 
-.hero__inner {
-  width: min(980px, 100%);
-  text-align: center;
-  position: relative;
+  .hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem;
+  }
 }
 
 .hero__brand {
@@ -49,17 +50,13 @@ html {
   display: block;
 }
 
-
-header.page__header{
+header.page__header {
   background-color: #000000;
 }
-
 
 .page__header {
   width: 100%;
 }
-
-
 
 .header__logo {
   max-width: 1200px; // o el ancho de tu layout
@@ -105,7 +102,6 @@ header.page__header{
   }
 }
 
-
 .page__form {
   width: 100%;
   background-image: url('./fondo_bolas.svg');
@@ -117,28 +113,33 @@ header.page__header{
 }
 
 .hero__title {
-  margin: 92px 0 24px; 
-  font-size: clamp(40px, 6vw, 76px);
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
   line-height: 1.05;
   font-weight: 800;
   letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+  margin-top: -5rem;
+
+  @media (min-width: 768px) {
+    margin-top: -3rem;
+  }
 }
 
 .hero__media {
   display: flex;
   justify-content: center;
-  margin: 0 auto 22px;
 }
 
 .hero__video {
-  width: min(520px, 90vw);
-  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-width: 60%;
   object-fit: cover;
-  border-radius: 999px;
   display: block;
+  margin-bottom: 0.5rem;
 
-
-  box-shadow: 0 0 140px rgba(60, 90, 255, 0.25);
+  @media (min-width: 768px) {
+    margin-bottom: -3rem;
+  }
 }
 
 .hero__subtitle {
@@ -151,14 +152,18 @@ header.page__header{
 
 .hero__cta {
   display: inline-block;
-  padding: 16px 52px;
+  padding: 1rem 5rem;
   border-radius: 999px;
   background: #1f3cff;
   color: #fff;
   text-decoration: none;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 1.5rem;
   transition: transform 0.15s ease;
+
+  @media (min-width: 768px) {
+    font-size: 2rem;
+  }
 }
 
 .hero__cta:hover {
@@ -173,9 +178,6 @@ header.page__header{
   margin: 26px auto 0;
   position: relative;
 }
-
-
-
 
 .hero__scroll::after {
   content: "";
@@ -202,16 +204,9 @@ header.page__header{
     justify-content: center;
     margin-bottom: 20px;
   }
-
-  .hero__title {
-    margin-top: 0;
-  }
 }
 
-
-
 /* FORM PAGE */
-
 .page__form {
   min-height: 100vh;
   display: grid;
@@ -249,6 +244,7 @@ header.page__header{
   padding: 18px 20px;
   font-weight: 700;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
   gap: 6px;
@@ -256,7 +252,6 @@ header.page__header{
   text-align: left;
 }
 
-/* keep the chevron pinned to the right */
 .accordion__icon {
   margin-left: auto;
   transition: transform 0.2s ease;
@@ -274,14 +269,12 @@ header.page__header{
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
 }
 
-/* Animación acordeón */
 .page__form .accordion__content {
   overflow: hidden;
   transform: translateY(-6px);
   transition: height 250ms ease, opacity 200ms ease, transform 200ms ease;
 }
 
-/* Estado abierto */
 .page__form .accordion.is-open .accordion__content {
   opacity: 1;
   transform: translateY(0);
@@ -306,6 +299,7 @@ header.page__header{
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  margin-bottom: 0.5rem;
 }
 
 .form__option {
@@ -327,17 +321,16 @@ header.page__header{
   height: 32px;
   border-radius: 50%;
   border: 2px solid #ddd;
+  margin-top: 0.2rem;
 }
 
-/* Alinear textos de los acordeones a la izquierda */
-.page__form .accordion__content {
-  text-align: left;
-}
+  .form__colorOption[data-value="#000000"] { background: #000; }
+  .form__colorOption[data-value="#ffffff"] { background: #fff; }
+  .form__colorOption[data-value="#ff6b81"] { background: #ff6b81; }
+  .form__colorOption[data-value="#6dd5c4"] { background: #6dd5c4; }
 
-.page__form .form__label {
-  text-align: left;
-}
-
+.page__form .accordion__content,
+.page__form .form__label,
 .page__form .form__input {
   text-align: left;
 }
@@ -346,6 +339,7 @@ header.page__header{
 .page__form .form__buttonsColor {
   justify-content: flex-start;
 }
+
 /* PREVIEW */
 .main__pic {
   display: flex;
@@ -360,14 +354,52 @@ header.page__header{
   text-align: left;
 }
 
-.form__previsualization {
+/* ======================
+   POLAROID 
+====================== */
+
+.main__pic .form__previsualization {
   width: 100%;
   max-width: 480px;
-  aspect-ratio: 4 / 5;
   background: #eef1f5;
   border-radius: 18px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+
+  padding: 16px 16px 72px;
+
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.06);
+
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
+
+.form__previsualizationImage,
+#apodImage {
+  width: 100%;
+  padding: 1rem;
+  max-width: none;
+
+  background: transparent;
+  border: none;
+
+  object-fit: cover;
+  object-position: center;
+
+  max-height: 22rem;
+}
+
+.bold {
+  color: #5F0AFF;
+  font-weight: 900;
+  font-size: 1.2rem;
+  text-shadow: 0 0.2px 0.5px rgba(0, 0, 0, 0.15);
+}
+
+
 
 /* RESPONSIVE */
 @media (max-width: 960px) {
@@ -379,5 +411,10 @@ header.page__header{
 
   .main__form {
     max-width: 100%;
+  }
+
+  .form__previsualizationImage,
+  #apodImage {
+    max-height: 22rem;
   }
 }

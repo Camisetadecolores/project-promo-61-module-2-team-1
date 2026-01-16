@@ -1,7 +1,24 @@
 'use strict';
 
-
 const PEXELS_API_KEY = import.meta.env.VITE_PEXELS_API_KEY;
+const FALLBACK_SRC = 'images/background-polaroid.png';
+
+function ensureDefaultPreview() {
+  const img = document.querySelector('#apodImage');
+  const video = document.querySelector('#apodVideo');
+  const status = document.querySelector('#apodStatus');
+
+  if (!img || !video || !status) {
+    console.warn('[picture.js] Faltan elementos en DOM (#apodStatus, #apodImage, #apodVideo).');
+    return;
+  }
+
+  img.src = FALLBACK_SRC;
+  img.hidden = false;
+
+  video.src = '';
+  video.hidden = true;
+}
 
 function setPreviewLoading(isLoading, msg = '') {
   const status = document.querySelector('#apodStatus');
@@ -19,8 +36,11 @@ function setPreviewLoading(isLoading, msg = '') {
     img.hidden = true;
     video.hidden = true;
   } else {
-    // Evita quedarse en blanco al mostrar mensajes de error
+    if (!img.src || img.src.endsWith('#') || img.src === window.location.href) {
+      img.src = FALLBACK_SRC;
+    }
     img.hidden = false;
+    video.hidden = true;
   }
 }
 
@@ -34,10 +54,25 @@ function setPreviewMedia({ url, credit = '' }) {
     return;
   }
 
-  status.textContent = credit || '';
+  status.textContent = '';
 
-  // Solo imagen (naturaleza)
   img.src = url;
+  img.hidden = false;
+
+  video.src = '';
+  video.hidden = true;
+}
+
+function setPreviewError(message) {
+  const status = document.querySelector('#apodStatus');
+  const img = document.querySelector('#apodImage');
+  const video = document.querySelector('#apodVideo');
+
+  if (!status || !img || !video) return;
+
+  status.textContent = message;
+
+  img.src = FALLBACK_SRC;
   img.hidden = false;
 
   video.src = '';
@@ -59,15 +94,17 @@ async function fetchPexelsNatureByDate(dateStr) {
 
   const query = 'nature landscape';
   const perPage = 80;
-  const page = (hashDateToIndex(dateStr, 10) + 1); // 1..10
+  const page = hashDateToIndex(dateStr, 10) + 1; // 1..10
 
-  const endpoint = 'https://api.pexels.com/v1/search?' + new URLSearchParams({
-    query,
-    orientation: 'landscape',
-    size: 'large',
-    per_page: String(perPage),
-    page: String(page)
-  });
+  const endpoint =
+    'https://api.pexels.com/v1/search?' +
+    new URLSearchParams({
+      query,
+      orientation: 'landscape',
+      size: 'large',
+      per_page: String(perPage),
+      page: String(page),
+    });
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 12000);
@@ -76,8 +113,8 @@ async function fetchPexelsNatureByDate(dateStr) {
     const res = await fetch(endpoint, {
       signal: controller.signal,
       headers: {
-        Authorization: PEXELS_API_KEY
-      }
+        Authorization: PEXELS_API_KEY,
+      },
     });
 
     const data = await res.json().catch(() => null);
@@ -121,6 +158,8 @@ function initNatureDatePicker() {
     return;
   }
 
+  ensureDefaultPreview();
+
   console.log('[picture.js] Inicializado. Esperando selección de fecha…');
 
   const today = new Date();
@@ -145,11 +184,13 @@ function initNatureDatePicker() {
 
       setPreviewMedia({
         url: pexels.url.replace(/^http:\/\//, 'https://'),
-        credit: pexels.credit
+        credit: pexels.credit,
       });
     } catch (err) {
       console.error('[picture.js] Error cargando Pexels:', err);
-      setPreviewLoading(false, `No se pudo cargar ninguna imagen de naturaleza. ${err?.message || ''}`.trim());
+      setPreviewError(
+        `No se pudo cargar ninguna imagen de naturaleza. ${err?.message || ''}`.trim()
+      );
     }
   });
 }

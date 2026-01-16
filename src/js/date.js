@@ -3,8 +3,12 @@ import { loadData, saveData } from './storage.js';
 const initDateText = () => {
   const dateInput = document.querySelector('#date');
   const dateSpan = document.querySelector('.pic__text--date');
+  const dateText = document.querySelector('.pic__text');
 
-  if (!dateInput || !dateSpan) return;
+  if (!dateInput || !dateSpan || !dateText) return;
+
+  // Estado inicial: oculto
+  dateText.classList.remove('is-visible');
 
   const formatDateES = (isoDate) => {
     const date = new Date(isoDate);
@@ -18,9 +22,12 @@ const initDateText = () => {
   const paintDate = () => {
     if (!dateInput.value) {
       dateSpan.textContent = '';
+      dateText.classList.remove('is-visible');
       return;
     }
+
     dateSpan.textContent = formatDateES(dateInput.value);
+    dateText.classList.add('is-visible');
   };
 
   let isRestoring = false;

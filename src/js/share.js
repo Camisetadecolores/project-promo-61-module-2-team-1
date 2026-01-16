@@ -1,4 +1,4 @@
-// share.js
+
 import { getCard } from './api.js';
 
 export default function initShare() {
@@ -7,7 +7,7 @@ export default function initShare() {
   if (!id) return;
 
   getCard(id).then((res) => {
-    const card = res?.data; // 👈 CLAVE según la doc
+    const card = res?.data; 
     if (!res?.success || !card) {
       console.log('[share.js] respuesta inválida:', res);
       return;

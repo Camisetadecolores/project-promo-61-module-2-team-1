@@ -1,4 +1,4 @@
-// reset.js
+
 import { clearData } from './storage.js';
 
 export default function initReset() {
