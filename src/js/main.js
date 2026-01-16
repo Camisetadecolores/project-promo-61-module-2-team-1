@@ -12,11 +12,26 @@ import initiReset from './reset';
 import initApp from './app';
 import initShare from './share';
 import { initPhrasePicker } from './phrases.js';
+import { initFinalCardShare } from './finalCardShare.js';
 
 // 🌿 Naturaleza por fecha (Pexels)
 import './picture.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Si estás en la pantalla final, NO hace falta inicializar el formulario
+  const isFinal = window.location.pathname.includes('finalCard-share');
+
+  if (isFinal) {
+    // 1) Pintar imagen / mensaje / firma
+    initShare();
+
+    // 2) Activar descarga + WhatsApp + Instagram (botones)
+    initFinalCardShare();
+
+    return; // cortamos aquí para no ejecutar initApp()
+  }
+
+  // Página del formulario (normal)
   initAccordion();
   initDateText();
   initFormSelects();
@@ -26,14 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initSignature();
   initiReset();
 
-
   initPhrasePicker();
-
-  if (window.location.pathname.includes('finalCard-share')) {
-    console.log('[main] estoy en finalCard-share, llamo a initShare');
-    initShare();
-  } else {
-    initApp();
-  }
-
+  initApp();
 });

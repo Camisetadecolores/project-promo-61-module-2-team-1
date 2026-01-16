@@ -1,162 +1,134 @@
-// src/js/finalCardShare.js
-// Share + download logic for the final polaroid.
-// Buttons expected in the DOM:
-// - #finalCard__button--download (button)
-// - #finalCard__button--shareWA (a or button)
-// - #finalCard__button--shareIG (button)
-// Image expected:
-// - #js-final-img (img)
-
-function getFinalImageEl() {
-  return document.querySelector("#js-final-img");
-}
-
-function getShareText() {
-  const msg = document.querySelector("#js-final-message")?.textContent?.trim();
-  const sig = document.querySelector("#js-final-signature")?.textContent?.trim();
-  const base = [msg, sig].filter(Boolean).join(" — ");
-  return base || "¡Mira mi polaroid!";
-}
-
-async function fetchBlobFromImage(imgEl) {
-  const src = imgEl?.src;
-  if (!src) throw new Error("No hay src en la imagen final");
-
-  // If the image is served from a different origin without CORS headers, this can fail.
-  const res = await fetch(src, { mode: "cors" });
-  if (!res.ok) throw new Error(`No se pudo descargar la imagen: ${res.status}`);
-  return await res.blob();
-}
-
-async function downloadImage() {
-  const imgEl = getFinalImageEl();
-  if (!imgEl?.src) {
-    alert("Aún no hay imagen para descargar.");
-    return;
-  }
-
-  try {
-    const blob = await fetchBlobFromImage(imgEl);
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "polaroid.png";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-
-    URL.revokeObjectURL(url);
-  } catch (err) {
-    console.warn(err);
-
-    // Fallback: try direct download (may open in new tab depending on browser)
-    const a = document.createElement("a");
-    a.href = imgEl.src;
-    a.download = "polaroid.png";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  }
-}
-
-async function shareWithWebShare({ preferFiles = false } = {}) {
-  const imgEl = getFinalImageEl();
-  const text = getShareText();
-  const url = window.location.href;
-
-  if (!navigator.share) return false;
-
-  // Best for Instagram on mobile: share files
-  if (preferFiles && imgEl?.src) {
-    try {
-      const blob = await fetchBlobFromImage(imgEl);
-      const file = new File([blob], "polaroid.png", { type: blob.type || "image/png" });
-
-      if (navigator.canShare && !navigator.canShare({ files: [file] })) {
-        throw new Error("El navegador no soporta compartir archivos.");
-      }
-
-      await navigator.share({
-        title: "Mi polaroid",
-        text,
-        files: [file],
-      });
-
-      return true;
-    } catch (e) {
-      console.warn("Fallo compartiendo con archivo:", e);
-      // continue to text/url share fallback
-    }
-  }
-
-  try {
-    await navigator.share({
-      title: "Mi polaroid",
-      text: `${text}\n${url}`,
-    });
-    return true;
-  } catch (e) {
-    console.warn("Fallo compartiendo:", e);
-    return false;
-  }
-}
-
-function shareToWhatsApp() {
-  const text = getShareText();
-  const url = window.location.href;
-
-  // Prefer native share sheet on mobile if available
-  shareWithWebShare({ preferFiles: false }).then((shared) => {
-    if (shared) return;
-
-    // WhatsApp deep-link fallback
-    const waUrl = `https://wa.me/?text=${encodeURIComponent(`${text}\n${url}`)}`;
-    window.open(waUrl, "_blank", "noopener");
-  });
-}
-
-function shareToInstagram() {
-  // Instagram doesn't offer a reliable direct web "intent".
-  // Best approach: use Web Share with files on mobile; fallback to download.
-  shareWithWebShare({ preferFiles: true }).then((shared) => {
-    if (shared) return;
-
-    alert(
-      "Instagram desde web no permite compartir directo.\n\n" +
-        "Se descargará la imagen para que la compartas manualmente desde Instagram."
-    );
-
-    downloadImage();
-  });
-}
-
 export function initFinalCardShare() {
-  const btnDownload = document.querySelector("#finalCard__button--download");
-  const btnShareWA = document.querySelector("#finalCard__button--shareWA");
-  const btnShareIG = document.querySelector("#finalCard__button--shareIG");
+  const container = document.querySelector('.main-finalCard');
+  if (!container) return;
 
-  // If this page isn't loaded, don't crash other pages
-  if (!btnDownload && !btnShareWA && !btnShareIG) return;
+  const btnDownload = document.querySelector('#finalCard__button--download');
+  const btnWA = document.querySelector('#finalCard__button--shareWA');
+  const btnIG = document.querySelector('#finalCard__button--shareIG');
 
+  // Genera la imagen desde TODO el DOM de la polaroid
+  async function generateImage() {
+    if (typeof window.html2canvas !== 'function') {
+      alert('html2canvas no está cargado');
+      throw new Error('html2canvas missing');
+    }
+
+    return await window.html2canvas(container, {
+      backgroundColor: '#ffffff',
+      scale: 2,
+      useCORS: true,
+    });
+  }
+
+  // Canvas → Blob (con control de null)
+  function canvasToBlob(canvas) {
+    return new Promise((resolve, reject) => {
+      canvas.toBlob((blob) => {
+        if (!blob) reject(new Error('No se pudo generar el PNG (blob null)'));
+        else resolve(blob);
+      }, 'image/png', 1);
+    });
+  }
+
+  // 📥 Descargar
   if (btnDownload) {
-    btnDownload.addEventListener("click", (ev) => {
-      ev.preventDefault();
-      downloadImage();
+    btnDownload.addEventListener('click', async () => {
+      try {
+        const canvas = await generateImage();
+        const link = document.createElement('a');
+        link.download = 'polaroid.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      } catch (e) {
+        console.error(e);
+      }
     });
   }
 
-  if (btnShareWA) {
-    btnShareWA.addEventListener("click", (ev) => {
-      ev.preventDefault();
-      shareToWhatsApp();
+  // 🟢 WhatsApp
+  if (btnWA) {
+    btnWA.addEventListener('click', async (e) => {
+      e.preventDefault();
+
+      const text = 'Mira mi Polaroid ✨';
+      const pageUrl = window.location.href;
+
+      try {
+        const canvas = await generateImage();
+        const blob = await canvasToBlob(canvas);
+        const file = new File([blob], 'polaroid.png', { type: 'image/png' });
+
+        // ✅ MÓVIL / NAVEGADORES COMPATIBLES: Share Sheet con archivo
+        const canShareFiles =
+          !!navigator.share && (!navigator.canShare || navigator.canShare({ files: [file] }));
+
+        if (canShareFiles) {
+          await navigator.share({
+            files: [file],
+            text: `${text}\n${pageUrl}`,
+          });
+          return;
+        }
+
+        // 🔁 FALLBACK (desktop y móviles no compatibles):
+        // WhatsApp web NO puede adjuntar imágenes desde un link → solo texto/URL
+        // Descargamos el PNG para que lo adjuntes manualmente
+        const link = document.createElement('a');
+        link.download = 'polaroid.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+
+        // Abrimos WhatsApp con texto + URL (esto sí es “link de compartir” real)
+        window.open(
+          `https://wa.me/?text=${encodeURIComponent(`${text}\n${pageUrl}`)}`,
+          '_blank',
+          'noopener'
+        );
+
+        alert(
+          'Tu navegador no permite enviar la imagen directamente a WhatsApp.\n' +
+          'He descargado la Polaroid para que la adjuntes manualmente en el chat.'
+        );
+      } catch (e) {
+        console.error(e);
+
+        // Último fallback: al menos abrir WhatsApp con texto + URL
+        window.open(
+          `https://wa.me/?text=${encodeURIComponent(`${text}\n${pageUrl}`)}`,
+          '_blank',
+          'noopener'
+        );
+      }
     });
   }
 
-  if (btnShareIG) {
-    btnShareIG.addEventListener("click", (ev) => {
-      ev.preventDefault();
-      shareToInstagram();
+  // 🟣 Instagram
+  if (btnIG) {
+    btnIG.addEventListener('click', async () => {
+      try {
+        const canvas = await generateImage();
+        const blob = await canvasToBlob(canvas);
+        const file = new File([blob], 'polaroid.png', { type: 'image/png' });
+
+        // ✅ MÓVIL (Share Sheet)
+        if (navigator.share && (!navigator.canShare || navigator.canShare({ files: [file] }))) {
+          await navigator.share({ files: [file] });
+          return;
+        }
+
+        // 🔁 FALLBACK (descarga)
+        const link = document.createElement('a');
+        link.download = 'polaroid-instagram.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+
+        alert(
+          'Instagram no permite compartir directamente desde el navegador en escritorio.\n' +
+          'La imagen se ha descargado para que puedas subirla manualmente.'
+        );
+      } catch (e) {
+        console.error(e);
+      }
     });
   }
 }
