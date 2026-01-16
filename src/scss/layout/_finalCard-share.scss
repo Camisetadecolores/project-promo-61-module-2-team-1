@@ -50,15 +50,24 @@
 .finalCard__card {
   width: min(48rem, 100%);
   border-radius: var(--radius-xl);
-  background: linear-gradient(180deg, var(--card), rgba(255, 255, 255, 0.02));
-  border: 1px solid var(--stroke);
-  box-shadow: var(--shadow-soft);
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1.25rem 3.75rem rgba(0, 0, 0, 0.45);
 
-  padding: 1.25rem;
+  padding: 1.5rem 1.5rem 2.25rem;
 
   display: grid;
   gap: 1rem;
   justify-items: center;
+  align-items: center;
+}
+
+.finalCard__polaroidTitle {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #000;
+  text-align: center;
 }
 
 .finalCard__img {
@@ -66,16 +75,40 @@
   height: auto;
   border-radius: 1.25rem;
   object-fit: cover;
+  display: block;
 
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
+  border: none;
+}
+
+.finalCard__message {
+  margin: 0.75rem 0 0;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #0ea5a4;
+}
+
+.finalCard__signature {
+  margin: 0.15rem 0 0;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.finalCard__polaroid {
+  width: 100%;
+  max-width: 42rem;
 }
 
 .finalCard__actions {
-  display: inline-flex;
+  margin-top: 1.25rem; /* space from polaroid */
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+
+  display: flex;
   gap: 1rem;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 .finalCard__iconLink,
@@ -83,9 +116,9 @@
   width: 3.25rem;
   height: 3.25rem;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 0.75rem 2.25rem rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.04);
+  box-shadow: 0 0.75rem 2.25rem rgba(0, 0, 0, 0.18);
 
   display: inline-flex;
   align-items: center;
@@ -99,13 +132,13 @@
 .finalCard__iconLink:hover,
 .finalCard__iconBtn:hover {
   transform: translateY(-0.125rem);
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.26);
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.26);
 }
 
 .finalCard__iconLink:focus-visible,
 .finalCard__iconBtn:focus-visible {
-  outline: 0.2rem solid rgba(255, 255, 255, 0.35);
+  outline: 0.2rem solid rgba(0, 0, 0, 0.35);
   outline-offset: 0.25rem;
 }
 
@@ -125,23 +158,17 @@
   text-align: center;
 }
 
-.finalCard__title {
-  margin: 0;
-  font-weight: 700;
-  font-size: clamp(1.6rem, 3vw, 2.6rem);
-  letter-spacing: -0.02em;
+.finalCard__ctaRow {
+  width: min(40rem, 100%);
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.finalCard__subtitle {
-  margin: 0;
-  font-weight: 600;
-  font-size: 1.05rem;
-  color: var(--muted);
-}
-
-#finalCard__button--new,
-#finalCard__button--finish {
-  width: min(26rem, 100%);
+#finalCard__button--finish,
+#finalCard__button--new {
+  flex: 1;
   border-radius: var(--radius-pill);
   padding: 0.95rem 1.25rem;
   border: 1px solid rgba(255, 255, 255, 0.16);
@@ -150,26 +177,32 @@
   font-weight: 700;
   letter-spacing: 0.01em;
   box-shadow: var(--shadow-btn);
-
   transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
   cursor: pointer;
-}
-
-#finalCard__button--new:hover,
-#finalCard__button--finish:hover {
-  transform: translateY(-0.125rem);
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.26);
 }
 
 #finalCard__button--finish {
   background: #fff;
   color: #000;
   border-color: #fff;
+  text-align: left;
+  padding-left: 1.6rem;
+}
+
+#finalCard__button--new {
+  text-align: center;
+}
+
+#finalCard__button--finish:hover,
+#finalCard__button--new:hover {
+  transform: translateY(-0.125rem);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.26);
 }
 
 #finalCard__button--finish:hover {
   background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(255, 255, 255, 0.92);
 }
 
 .finalCard-share footer {
@@ -213,8 +246,12 @@
     height: 3rem;
   }
 
-  #finalCard__button--new,
+  .finalCard__ctaRow {
+    flex-direction: column;
+  }
+
   #finalCard__button--finish {
-    width: 100%;
+    text-align: center;
+    padding-left: 1.25rem;
   }
 }
